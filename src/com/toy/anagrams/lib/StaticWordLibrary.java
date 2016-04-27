@@ -31,6 +31,9 @@
 
 package com.toy.anagrams.lib;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Implementation of the logic for the Anagram Game application.
  */
@@ -84,54 +87,23 @@ final class StaticWordLibrary extends WordLibrary {
         "wordtest",
         "traditional"};
 
-    private static final String[] SCRAMBLED_WORD_LIST = {
-        "batsartcoin",
-        "maibuguos",
-        "ratimhteci",
-        "abkclssha",
-        "ibmtpa",
-        "iccrmutsnaec",
-        "ocbmnitaoni",
-        "ocsnqeeutnyl",
-        "ocsnroitmu",
-        "edrcmeneitgn",
-        "edepdnneyc",
-        "idasbmgiauet",
-        "ydanicm",
-        "neacsplutaoni",
-        "qeiuaveltn",
-        "xerpseisno",
-        "aficilatet",
-        "rfgaemtn",
-        "ehaxedicalm",
-        "milpmeneatitno",
-        "niidtsniugsiahleb",
-        "niehiratcen",
-        "nietnret",
-        "ajav",
-        "olacilazitno",
-        "imrcpoorecssro",
-        "anivagitno",
-        "poitimazitno",
-        "aparemert",
-        "aprtcki",
-        "ipkcel",
-        "opylomprich",
-        "irogorsuyl",
-        "isumtlnaoesuyl",
-        "psceficitaoni",
-        "tsurtcreu",
-        "elixalc",
-        "ilekiwse",
-        "amanegemtn",
-        "aminupalet",
-        "amhtmetacsi",
-        "ohjtvaa",
-        "evtrxe",
-        "nuisngde",
-        "sorwtdte",
-        "rtdatioialn"
-    };
+    public static String WORD_SHUFFLE(String s){
+    	String p = ""; 
+    	ArrayList WORD = new ArrayList<String>();
+    	int n = s.length();
+    	for(int i = 0; i < n; i++){
+    		char t=s.charAt(i);
+    		WORD.add(t);
+    	}
+    	Collections.shuffle(WORD);
+    	for(int i = 0; i < n; i++ ){
+    		p += WORD.get(i);
+    	}
+    	return p;
+    }
+    
+    private String[] SCRAMBLED_WORD_LIST = new String[getSize()];
+
     
     final static WordLibrary DEFAULT = new StaticWordLibrary();
 
@@ -139,6 +111,11 @@ final class StaticWordLibrary extends WordLibrary {
      * Singleton class.
      */
     private StaticWordLibrary() {
+    	int t = getSize();
+    	for(int i = 0;i < t; i++){
+    		SCRAMBLED_WORD_LIST[i] = WORD_SHUFFLE(WORD_LIST[i]);
+    	}
+    	
     }
 
     /**
@@ -163,7 +140,7 @@ final class StaticWordLibrary extends WordLibrary {
      * Gets the number of words in the library.
      * @return the total number of plain/scrambled word pairs in the library
      */
-    public int getSize() {
+    public int getSize() {//getSizeはWord_Listの個数
         return WORD_LIST.length;
     }
 
